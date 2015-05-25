@@ -44,11 +44,13 @@ public class FadeObject : MonoBehaviour
 	void Update ()
 	{
 		if (playerBehind) 
-			tar = 0.1f;
+			tar = 0.5f;
 		else
 			tar = 1f;
-		aCurrent = Mathf.Lerp (aCurrent, tar, fadeTime);
-		originalColour = myRender.material.color;
-		myRender.material.color = new Color (originalColour.r, originalColour.g, originalColour.b, aCurrent);
+		if (aCurrent != tar) {
+			aCurrent = Mathf.Lerp (aCurrent, tar, fadeTime);
+			originalColour = myRender.material.color;
+			myRender.material.color = new Color (originalColour.r, originalColour.g, originalColour.b, aCurrent);
+		}
 	}
 }

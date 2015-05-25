@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class PlayerMoveTEst : MonoBehaviour {
+	public Camera myCamera;
 	public NavMeshAgent agent;
 	public bool behindStealthableObj = false;		//I am Behind something
 
@@ -14,11 +15,11 @@ public class PlayerMoveTEst : MonoBehaviour {
 	void Update () {
 		if(Input.GetMouseButton(0)){
 			RaycastHit hit;
-			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+			Ray ray = myCamera.ScreenPointToRay (Input.mousePosition);
 		
 			if (Physics.Raycast (ray, out hit)) {
 				Transform objectHit = hit.transform;
-				Debug.DrawLine (Camera.main.transform.position, hit.point, Color.red);
+				Debug.DrawLine (myCamera.transform.position, hit.point, Color.green);
 				NavMeshHit navHit;
 				NavMesh.SamplePosition(hit.point, out navHit, 20f, NavMesh.AllAreas);
 				agent.SetDestination(navHit.position);
