@@ -43,10 +43,28 @@ public class FadeObject : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (playerBehind) 
+		if (playerBehind) {
 			tar = 0.5f;
-		else
+			myRender.material.SetFloat("_Mode", 2);
+			myRender.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+			myRender.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+			myRender.material.SetInt("_ZWrite", 0);
+			myRender.material.DisableKeyword("_ALPHATEST_ON");
+			myRender.material.EnableKeyword("_ALPHABLEND_ON");
+			myRender.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+			myRender.material.renderQueue = 3000;
+		} else {
 			tar = 1f;
+			myRender.material.SetFloat("_Mode", 0);
+			myRender.material.SetFloat("_Mode", 0);
+			myRender.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+			myRender.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+			myRender.material.SetInt("_ZWrite", 1);
+			myRender.material.DisableKeyword("_ALPHATEST_ON");
+			myRender.material.EnableKeyword("_ALPHABLEND_ON");
+			myRender.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+			myRender.material.renderQueue = 3000;
+		}
 		if (aCurrent != tar) {
 			aCurrent = Mathf.Lerp (aCurrent, tar, fadeTime);
 			originalColour = myRender.material.color;
